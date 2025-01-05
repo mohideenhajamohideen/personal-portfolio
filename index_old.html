@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohideen HajaMohideen - Personal Portfolio</title> 
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/501ac8d2f3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <img src="images/logo.png" class="logo">
+                <ul id="sidemenu">
+                    <li><a href="#header">Home</a></li>
+                    <li><a href="#about">About</a></li> 
+                    <li><a href="#services">Services</a></li> 
+                    <!-- <li><a href="#">Portfolio</a></li>  -->
+                    <li><a href="#contact">Contact</a></li>
+                    <i class="fas fa-times" onclick="closemenu()"></i>
+                </ul>
+                <i class="fas fa-bars" onclick="openmenu()"></i>
+            </nav>
+            <div class="header-text">
+                <p>Cloud Infrastructure Architect</p><br><br><br>
+                <h1>Hello... <br>I'm <span>Mohideen</span> HajaMohideen</h1><br><br>
+            </div>
+            <div class="wrapper">
+                <p class="line__1">I am passionate about driving digital transformation and 
+                    delivering exceptional</p>
+                    <p class="line__2">results for customers. Throughout 
+                    my career, I have successfully led Cloud </p>
+                    <p class="line__3">transformations, 
+                    achieved cost savings of over $1 million/year, and implemented
+                    <p class="line__4">sustainability initiatives reducing carbon emissions by 30%.</p>
+            </div>
+        </div>
+    </div>
+    <!-- -------------about------------ -->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="images/user.png">
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    <p>Seasoned Cloud Infrastructure Architect with over 15 years of 
+                        experience in designing and delivering cloud-based solutions 
+                        on AWS, Azure, and GCP. Demonstrated success in leading 
+                        cross-functional teams, collaborating with stakeholders, and 
+                        delivering complex projects on time and within budget. Proficient 
+                        in designing highly available, fault-tolerant, and cost-optimized 
+                        architectures using cloud-native services. Strong expertise in cloud migration 
+                        strategies, infrastructure automation, DevOps practices, and security best practices.</p>
+
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                        <p class="tab-links" onclick="opentab('education')">Education</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="skills">
+                        <ul>
+                            <li><span>Cloud Technologies</span><br>AWS (Amazon Web Services), Google Cloud Platform, Microsoft Azure</li>
+                            <li><span>Cloud Migration</span><br>Discovery, Assessment, Planning, Execution and Operations</li>
+                            <li><span>Cloud Cost Optimization</span><br>Cost Visualization, Automated Optimization, Cost-effective architectural design</li>
+                            <li><span>Sustainability Optimization</span><br>Sustainability Visualization, Green computing, Renewable energy integration</li>
+                            <li><span>DevOps</span><br>Git, CI/CD, Code Pipeline, Azure Pipeline, Code Build, Docker, Kubernetes, DevSecOps</li>
+                            <li><span>Security</span><br>IAM Identity Center, Azure AD, KMS, SIEM, AWS Network Firewall, WAF, Sentinel, Cloud Security Command center</li>
+                            <li><span>AI/ML</span><br>MLOps</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>Experience</span><br>Available upon request</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="education">
+                        <ul>
+                            <li><span>2022</span><br>AWS Certified Solutions Architect Professional</li>
+                            <li><span>2021</span><br>AWS Certified Security Specialty</li>
+                            <li><span>2021</span><br>Azure Certified Solutions Architect - Expert</li>
+                            <li><span>2006</span><br>Bachelor of Science</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -------------services------------ -->
+    <div id="services">
+        <div class="container">
+            <h1 class="sub-title">My Services</h1>
+            <div class="services-list">
+                <div>
+                    <i class="fas fa-cloud"></i>
+                    <h2>Cloud Solution Design</h2>
+                    <p>Have a proven track record of designing cutting-edge solutions 
+                    in the cloud across AWS, Azure, and GCP. Have designed Cloud Landing 
+                    Zone, Migration, and Optimization of existing Cloud Infrastructure for 
+                    Cost and Sustainability. Contact for more information about the 
+                    interesting projects that I'm working on...</p>
+                    <a href="#">Learn more</a>
+                </div>
+                <div>
+                    <i class="fas fa-code"></i>
+                    <h2>DevOps</h2>
+                    <p>Built state-of-the-art deployment pipelines for infrastructure and 
+                    applications that perfectly align with the solution by leveraging
+                    tools like Git, CodeCommit, CodePipeline, Azure DevOps, Cloud DevOps,
+                    Python, Jenkins, Kubernetes, Docker, etc.</p>
+                    <a href="#">Learn more</a>
+                </div>
+                <div>
+                    <i class="fas fa-shield"></i>
+                    <h2>Security</h2>
+                    <p>Delivered Cloud Security posture analysis and improvements. Designed
+                    cloud security solutions like Security Visualization, SIEM solution integration
+                    and Automated Incident Response system.</p>
+                    <a href="#">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -------------contact------------ -->
+    <div id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="contact-left">
+                    <h1 class="sub-title">Contact Me</h1>
+                    <p><i class="fas fa-paper-plane"></i>mohideen.hajamohideen@outlook.com</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/cadertechy/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/cadertechy"><i class="fab fa-twitter-square"></i></a>
+                        <a href="https://www.instagram.com/mohideen.abdulcader/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/mohideenabdulcader/"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <br><br>
+                    <button type="button"><a href="images/Mohideen_Cloud_Architect.pdf" download class="btn btn2">Download CV</a></button>
+                </div>
+                <div class="contact-right">
+                    <form name="submit-to-google-sheet">
+                        <input type="text" name="Name" placeholder="Your Name" required>
+                        <input type="email" name="Email" placeholder="Your Email" required>
+                        <textarea name="Message" rows="6" placeholder="Your Message..."></textarea>
+                        <button type="submit" class="btn btn2">Submit</button>
+                    </form>
+                    <span id="msg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>Copyright © MohideenHajaMohideen.com</p>
+        </div>
+    </div>
+    <script>
+
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+        function opentab(tabname){
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active-link");
+            }
+            for (var i = 0; i < tabcontents.length; i++) {
+                tabcontents[i].classList.remove("active-tab");
+            }
+            event.currentTarget.classList.add("active-link");
+            document.getElementById(tabname).classList.add("active-tab");
+        }
+    </script>
+    <script>
+        var sidemenu = document.getElementById("sidemenu");
+        function openmenu() {
+            sidemenu.style.right = "0"
+        }
+        function closemenu() {
+            sidemenu.style.right = "-200px"
+        }
+    </script>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzIwyP4atRrBWyTN7YovPB-FvT9l-u4jE5Pnu-J1tOPRQ1Z6_sO4BoqIJxoTyqVpKjkvA/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg")
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    msg.innerHTML = "Message Sent... Thanks for Contacting Me.."
+                    setTimeout(function(){
+                        msg.innerHTML = ""
+                    },5000)
+                    form.reset()
+                })
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+</body>
+</html>
