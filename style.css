@@ -71,130 +71,160 @@ nav ul li a:hover::after{
     color: #ff004f;
 }
 
+/* ISSUES IDENTIFIED:
+1. Inconsistent indentation throughout the code block
+2. Duplicate cursor animations that could be consolidated into a single reusable animation
+3. Missing vendor prefixes for better browser compatibility
+4. Inconsistent use of rem units without a defined root font size
+5. Commented out code that should be removed if not needed
+6. Missing closing brace alignment in animated-text__4
+*/
+
 .wrapper {
     margin-top: 5%;
     width: 100%;
     height: 100%;
-  }
-  
-  .line__1,
-  .line__2,
-  .line__3,
-  .line__4 {
+}
+
+.line__1,
+.line__2,
+.line__3,
+.line__4 {
     white-space: nowrap; /* keep text in one line */
     overflow: hidden; /* hide text behind the cursor */
-    /* margin: 0.5rem auto; */
-    /* font-family: "Major Mono Display", monospace; */
     font-size: 18px;
-    /* font-weight: bold; */
-  }
-  
-  .line__1 {
+}
+
+.line__1 {
     border-right: 2px solid rgba(17, 17, 17, 0.9);
     margin-left: 10px;
-  
-    /* define animation types for text + cursor */
+    -webkit-animation: animated-text__1 2s steps(30, end) 1s 1 normal both,
+                       animated-cursor 900ms steps(30, end) 3;
     animation: animated-text__1 2s steps(30, end) 1s 1 normal both,
-      animated-cursor__1 900ms steps(30, end) 3;
-  }
-  
-  .line__2 {
+              animated-cursor 900ms steps(30, end) 3;
+}
+
+.line__2 {
     border-right: 2px solid rgba(17, 17, 17, 0.9);
     margin-left: 10px;
-  
-    /* define animation types for text + cursor */
+    -webkit-animation: animated-text__2 2s steps(30, end) 1s 1 normal both,
+                       animated-cursor 900ms steps(30, end) 3;
     animation: animated-text__2 2s steps(30, end) 1s 1 normal both,
-      animated-cursor__2 900ms steps(30, end) 3;
-    -webkit-animation-delay: 2s;
+              animated-cursor 900ms steps(30, end) 3;
+    -webkit-animation-delay: 3s;
     animation-delay: 3s;
-  }
-  .line__3 {
+}
+
+.line__3 {
     border-right: 2px solid rgba(17, 17, 17, 0.9);
     margin-left: 10px;
-  
-    /* define animation types for text + cursor */
+    -webkit-animation: animated-text__3 2s steps(30, end) 1s 1 normal both,
+                       animated-cursor 900ms steps(30, end) 3;
     animation: animated-text__3 2s steps(30, end) 1s 1 normal both,
-      animated-cursor__3 900ms steps(30, end) 3;
-    -webkit-animation-delay: 2s;
+              animated-cursor 900ms steps(30, end) 3;
+    -webkit-animation-delay: 5s;
     animation-delay: 5s;
-  }
-  .line__4 {
+}
+
+.line__4 {
     border-right: 2px solid rgba(17, 17, 17, 0.9);
     margin-left: 10px;
-  
-    /* define animation types for text + cursor */
+    -webkit-animation: animated-text__4 2s steps(30, end) 1s 1 normal both,
+                       animated-cursor 900ms steps(30, end) infinite;
     animation: animated-text__4 2s steps(30, end) 1s 1 normal both,
-      animated-cursor__4 900ms steps(30, end) infinite;
+              animated-cursor 900ms steps(30, end) infinite;
     -webkit-animation-delay: 7s;
     animation-delay: 7s;
-  }
-  
-  @keyframes animated-cursor__1 {
+}
+
+@-webkit-keyframes animated-cursor {
     from {
-      border-right-color: rgba(17, 17, 17, 0.9);
+        border-right-color: rgba(17, 17, 17, 0.9);
     }
     to {
-      border-right-color: rgba(255, 255, 255, 0.8);
+        border-right-color: rgba(255, 255, 255, 0.8);
     }
-  }
-  
-  @keyframes animated-cursor__2 {
+}
+
+@keyframes animated-cursor {
     from {
-      border-right-color: rgba(17, 17, 17, 0.9);
+        border-right-color: rgba(17, 17, 17, 0.9);
     }
     to {
-      border-right-color: rgba(255, 255, 255, 0.8);
+        border-right-color: rgba(255, 255, 255, 0.8);
     }
-  }
-  @keyframes animated-cursor__3 {
+}
+
+@-webkit-keyframes animated-text__1 {
     from {
-      border-right-color: rgba(17, 17, 17, 0.9);
+        width: 0;
     }
     to {
-      border-right-color: rgba(255, 255, 255, 0.8);
+        width: 36rem;
     }
-  }
-  @keyframes animated-cursor__4 {
+}
+
+@keyframes animated-text__1 {
     from {
-      border-right-color: rgba(17, 17, 17, 0.9);
+        width: 0;
     }
     to {
-      border-right-color: rgba(255, 255, 255, 0.8);
+        width: 36rem;
     }
-  }
-  @keyframes animated-text__1 {
+}
+
+@-webkit-keyframes animated-text__2 {
     from {
-      width: 0;
+        width: 0;
     }
     to {
-      width: 36rem;
+        width: 34rem;
     }
-  }
-  
-  @keyframes animated-text__2 {
+}
+
+@keyframes animated-text__2 {
     from {
-      width: 0;
+        width: 0;
     }
     to {
-      width: 34rem;
+        width: 34rem;
     }
-  }
-  @keyframes animated-text__3 {
+}
+
+@-webkit-keyframes animated-text__3 {
     from {
-      width: 0;
+        width: 0;
     }
     to {
-      width: 37rem;
+        width: 37rem;
     }
-  }
-  @keyframes animated-text__4 {
+}
+
+@keyframes animated-text__3 {
     from {
-      width: 0;
+        width: 0;
     }
     to {
-      width: 27rem;
+        width: 37rem;
     }
-   
+}
+
+@-webkit-keyframes animated-text__4 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 27rem;
+    }
+}
+
+@keyframes animated-text__4 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 27rem;
+    }
 }
   
 /* ----------about---------- */
