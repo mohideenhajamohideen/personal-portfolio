@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- -------------about------------ -->
-    <div id="about">
+    <div id="about" class="hidden">
         <div class="container">
             <div class="row">
                 <div class="about-col-1">
@@ -93,7 +93,7 @@
         </div>
     </div>
     <!-- -------------services------------ -->
-    <div id="services">
+    <div id="services" class="hidden">
         <div class="container">
             <h1 class="sub-title">My Services</h1>
             <div class="services-list">
@@ -128,7 +128,7 @@
         </div>
     </div>
     <!-- -------------contact------------ -->
-    <div id="contact">
+    <div id="contact" class="hidden">
         <div class="container">
             <div class="row">
                 <div class="contact-left">
@@ -156,6 +156,9 @@
         </div>
         <div class="copyright">
             <p>Copyright © MohideenHajaMohideen.com</p>
+        </div>
+        <div class="visitor-counter">
+            <p>This page has been visited <span id="count">0</span> times.</p>
         </div>
     </div>
     <script>
@@ -201,6 +204,22 @@
                 })
                 .catch(error => console.error('Error!', error.message))
         })
+    </script>
+    <script>
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+        document.querySelectorAll('.hidden').forEach(sec => observer.observe(sec));
+    </script>
+    <script>
+        let visitCount = localStorage.getItem('visitCount');
+        visitCount = visitCount ? parseInt(visitCount) + 1 : 1;
+        localStorage.setItem('visitCount', visitCount);
+        document.getElementById('count').innerText = visitCount;
     </script>
 </body>
 </html>
