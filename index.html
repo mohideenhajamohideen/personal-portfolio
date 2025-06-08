@@ -1,234 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohideen HajaMohideen - Personal Portfolio</title> 
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/501ac8d2f3.js" crossorigin="anonymous"></script>
+    <title>Mohideen Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        #visitor-widget { backdrop-filter: blur(6px); }
+    </style>
 </head>
-<body>
-    <div id="header" class="section">
-        <div class="container">
-            <nav>
-                <img src="images/logo.png" class="logo">
-                <ul id="sidemenu">
-                    <li><a href="#header">Home</a></li>
-                    <li><a href="#about">About</a></li> 
-                    <li><a href="#services">Services</a></li> 
-                    <!-- <li><a href="#">Portfolio</a></li>  -->
-                    <li><a href="#contact">Contact</a></li>
-                    <i class="fas fa-times" onclick="closemenu()"></i>
-                </ul>
-                <i class="fas fa-bars" onclick="openmenu()"></i>
-            </nav>
-            <div class="header-text">
-                <p>Sr. Delivery Consultant</p><br><br><br>
-                <h1>Hello... <br>I'm <span>Mohideen</span> HajaMohideen</h1><br><br>
-            </div>
-            <!-- Added missing closing tag for line__3 paragraph -->
-            <div class="wrapper">
-                <p class="line__1">I am passionate about driving digital transformation and 
-                delivering exceptional</p>
-                <p class="line__2">results for customers. Throughout 
-                my career, I have successfully led Cloud </p>
-                <p class="line__3">transformations, 
-                achieved cost savings of over $1 million/year, and implemented</p>
-                <p class="line__4">sustainability initiatives reducing carbon emissions by 30%.</p>
+<body class="bg-white text-gray-900">
+    <header class="fixed top-0 inset-x-0 bg-white bg-opacity-80 backdrop-blur-md z-50">
+        <nav class="max-w-7xl mx-auto flex items-center justify-between p-4">
+            <span class="font-semibold text-xl">Mohideen</span>
+            <ul class="hidden md:flex space-x-6 text-sm">
+                <li><a href="#home" class="hover:underline">Home</a></li>
+                <li><a href="#about" class="hover:underline">About</a></li>
+                <li><a href="#work" class="hover:underline">Work</a></li>
+                <li><a href="#tech" class="hover:underline">Technologies</a></li>
+                <li><a href="#contact" class="hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="min-h-screen flex items-center justify-center text-center" data-aos="fade">
+        <div class="mt-16">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Hello, I'm Mohideen</h1>
+            <p class="text-xl">Sr. Delivery Consultant</p>
+        </div>
+    </section>
+
+    <section id="about" class="py-20" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-3xl font-semibold mb-6">About Me</h2>
+            <p class="leading-relaxed">I am passionate about driving digital transformation and delivering exceptional results for customers. Throughout my career, I have successfully led cloud transformations, achieved significant cost savings and implemented sustainability initiatives.</p>
+        </div>
+    </section>
+
+    <section id="work" class="py-20 bg-gray-50" data-aos="fade-up">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center mb-10">Projects</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <img src="https://via.placeholder.com/300" alt="Project 1" class="rounded shadow">
+                <img src="https://via.placeholder.com/300" alt="Project 2" class="rounded shadow">
+                <img src="https://via.placeholder.com/300" alt="Project 3" class="rounded shadow">
             </div>
         </div>
+    </section>
+
+    <section id="tech" class="py-20" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-3xl font-semibold mb-6">Technologies</h2>
+            <p class="leading-relaxed">Cloud architecture, DevOps, AWS, Azure, and more.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-gray-50" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-3xl font-semibold mb-6">Contact</h2>
+            <form class="space-y-4 max-w-md mx-auto">
+                <input type="text" placeholder="Name" class="w-full border p-2 rounded" required>
+                <input type="email" placeholder="Email" class="w-full border p-2 rounded" required>
+                <textarea placeholder="Message" class="w-full border p-2 rounded" rows="4" required></textarea>
+                <button type="submit" class="bg-black text-white px-4 py-2 rounded">Send</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="back-to-top" class="hidden fixed bottom-20 right-4 p-2 bg-gray-200 rounded-full cursor-pointer">&uarr;</div>
+    <div id="visitor-widget" class="fixed bottom-0 right-0 m-4 px-4 py-2 bg-white bg-opacity-70 rounded-lg shadow">
+        👁️ <span id="visitor-count">0</span> visitors
     </div>
-    <!-- -------------about------------ -->
-    <div id="about" class="section hidden">
-        <div class="container">
-            <div class="row">
-                <div class="about-col-1">
-                    <img src="images/user.png">
-                </div>
-                <div class="about-col-2">
-                    <h1 class="sub-title">About Me</h1>
-                    <p>Seasoned Sr. Delivery Consultant with over 15 years of 
-                        experience in designing and delivering cloud-based solutions 
-                        on AWS, Azure, and GCP. Demonstrated success in leading 
-                        cross-functional teams, collaborating with stakeholders, and 
-                        delivering complex projects on time and within budget. Proficient 
-                        in designing highly available, fault-tolerant, and cost-optimized 
-                        architectures using cloud-native services. Strong expertise in cloud migration 
-                        strategies, infrastructure automation, DevOps practices, and security best practices.</p>
 
-                    <div class="tab-titles">
-                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
-                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
-                        <p class="tab-links" onclick="opentab('education')">Education</p>
-                    </div>
-                    <div class="tab-contents active-tab" id="skills">
-                        <ul>
-                            <li><span>Cloud Technologies</span><br>AWS (Amazon Web Services), Google Cloud Platform, Microsoft Azure</li>
-                            <li><span>Cloud Migration</span><br>Discovery, Assessment, Planning, Execution and Operations</li>
-                            <li><span>Cloud Cost Optimization</span><br>Cost Visualization, Automated Optimization, Cost-effective architectural design</li>
-                            <li><span>Sustainability Optimization</span><br>Sustainability Visualization, Green computing, Renewable energy integration</li>
-                            <li><span>DevOps</span><br>Git, CI/CD, Code Pipeline, Azure Pipeline, Code Build, Docker, Kubernetes, DevSecOps</li>
-                            <li><span>Security</span><br>IAM Identity Center, Azure AD, KMS, SIEM, AWS Network Firewall, WAF, Sentinel, Cloud Security Command center</li>
-                            <li><span>AI/ML</span><br>MLOps, GenAI</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="experience">
-                        <ul>
-                            <li><span>Experience</span><br>Available upon request</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="education">
-                        <ul>
-                            <li><span>2024</span><br>AWS Certified AI Practitioner</li>
-                            <li><span>2023</span><br>FinOps Certified Practitioner</li>
-                            <li><span>2022</span><br>AWS Certified Solutions Architect Professional</li>
-                            <li><span>2021</span><br>AWS Certified Security Specialty</li>
-                            <li><span>2021</span><br>Azure Certified Solutions Architect - Expert</li>
-                            <li><span>2006</span><br>Bachelor of Science</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- -------------services------------ -->
-    <div id="services" class="section hidden">
-        <div class="container">
-            <h1 class="sub-title">My Services</h1>
-            <div class="services-list">
-                <div>
-                    <i class="fas fa-cloud"></i>
-                    <h2>Cloud Solution Design</h2>
-                    <p>Have a proven track record of designing cutting-edge solutions 
-                    in the cloud across AWS, Azure, and GCP. Have designed Cloud Landing 
-                    Zone, Migration, and Optimization of existing Cloud Infrastructure for 
-                    Cost and Sustainability. Contact for more information about the 
-                    interesting projects that I'm working on...</p>
-                    <a href="#">Learn more</a>
-                </div>
-                <div>
-                    <i class="fas fa-code"></i>
-                    <h2>DevOps</h2>
-                    <p>Built state-of-the-art deployment pipelines for infrastructure and 
-                    applications that perfectly align with the solution by leveraging
-                    tools like Git, CodeCommit, CodePipeline, Azure DevOps, Cloud DevOps,
-                    Python, Jenkins, Kubernetes, Docker, etc.</p>
-                    <a href="#">Learn more</a>
-                </div>
-                <div>
-                    <i class="fas fa-shield"></i>
-                    <h2>Security</h2>
-                    <p>Delivered Cloud Security posture analysis and improvements. Designed
-                    cloud security solutions like Security Visualization, SIEM solution integration
-                    and Automated Incident Response system.</p>
-                    <a href="#">Learn more</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- -------------contact------------ -->
-    <div id="contact" class="section hidden">
-        <div class="container">
-            <div class="row">
-                <div class="contact-left">
-                    <h1 class="sub-title">Contact Me</h1>
-                    <p><i class="fas fa-paper-plane"></i>mohideen.hajamohideen@outlook.com</p>
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/cadertechy/"><i class="fab fa-facebook"></i></a>
-                        <a href="https://twitter.com/cadertechy"><i class="fab fa-twitter-square"></i></a>
-                        <a href="https://www.instagram.com/mohideen.abdulcader/"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/mohideenabdulcader/"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                    <br><br>
-                    <button type="button"><a href="images/Mohideen_Cloud_Architect.pdf" download class="btn btn2">Download CV</a></button>
-                </div>
-                <div class="contact-right">
-                    <form name="submit-to-google-sheet">
-                        <input type="text" name="Name" placeholder="Your Name" required>
-                        <input type="email" name="Email" placeholder="Your Email" required>
-                        <textarea name="Message" rows="6" placeholder="Your Message..."></textarea>
-                        <button type="submit" class="btn btn2">Submit</button>
-                    </form>
-                    <span id="msg"></span>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>Copyright © MohideenHajaMohideen.com</p>
-        </div>
-        <div class="visitor-counter">
-            <p>This page has been visited <span id="count">0</span> times.</p>
-        </div>
-    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
     <script>
-
-        var tablinks = document.getElementsByClassName("tab-links");
-        var tabcontents = document.getElementsByClassName("tab-contents");
-
-        function opentab(tabname){
-            for (var i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active-link");
-            }
-            for (var i = 0; i < tabcontents.length; i++) {
-                tabcontents[i].classList.remove("active-tab");
-            }
-            event.currentTarget.classList.add("active-link");
-            document.getElementById(tabname).classList.add("active-tab");
-        }
-    </script>
-    <script>
-        var sidemenu = document.getElementById("sidemenu");
-        function openmenu() {
-            sidemenu.style.right = "0"
-        }
-        function closemenu() {
-            sidemenu.style.right = "-200px"
-        }
-    </script>
-
-    <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzIwyP4atRrBWyTN7YovPB-FvT9l-u4jE5Pnu-J1tOPRQ1Z6_sO4BoqIJxoTyqVpKjkvA/exec'
-        const form = document.forms['submit-to-google-sheet']
-        const msg = document.getElementById("msg")
-
-        form.addEventListener('submit', e => {
-            e.preventDefault()
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => {
-                    msg.innerHTML = "Message Sent... Thanks for Contacting Me.."
-                    setTimeout(function(){
-                        msg.innerHTML = ""
-                    },5000)
-                    form.reset()
-                })
-                .catch(error => console.error('Error!', error.message))
-        })
-    </script>
-    <script>
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 200) backBtn.classList.remove('hidden');
+            else backBtn.classList.add('hidden');
         });
-        document.querySelectorAll('.hidden').forEach(sec => observer.observe(sec));
+        backBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
     </script>
-    <script>
-        // Local visitor counter
-        let visitCount = localStorage.getItem('visitCount');
-        visitCount = visitCount ? parseInt(visitCount) + 1 : 1;
-        localStorage.setItem('visitCount', visitCount);
-        document.getElementById('count').innerText = visitCount;
-
-        // Global counter using countapi
-        fetch('https://api.countapi.xyz/hit/mohideen-portfolio/visits')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('count').innerText = data.value;
-            })
-            .catch(console.error);
-    </script>
+    <script type="module" src="components/visitor-counter.js"></script>
 </body>
 </html>
