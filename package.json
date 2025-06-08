@@ -1,0 +1,13 @@
+{
+  "name": "personal-portfolio",
+  "version": "1.0.0",
+  "main": "api/visitor.js",
+  "scripts": {
+    "start": "node api/visitor.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "lowdb": "^3.0.0"
+  }
+}
