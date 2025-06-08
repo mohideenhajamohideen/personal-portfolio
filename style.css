@@ -9,6 +9,23 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Enable smooth snap scrolling on larger screens */
+@media (min-width: 768px) {
+    body {
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+    }
+    #header,
+    #about,
+    #services,
+    #contact {
+        scroll-snap-align: start;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+}
+
 body {
     background: #fff;
     color: #000;
@@ -17,11 +34,19 @@ body {
 #header{
     width: 100%;
     height: 100vh;
-    background: #f2f2f2;
-    display: flex;
-    align-items: center;
+    background-image: url("images/background.png");
+    background-color: #f2f2f2;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+}
+
+/* Generic section styling */
+.section {
+    width: 100%;
+    position: relative;
 }
 .container{
     padding: 10px 10%;

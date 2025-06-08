@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/501ac8d2f3.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="header">
+    <div id="header" class="section">
         <div class="container">
             <nav>
                 <img src="images/logo.png" class="logo">
@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- -------------about------------ -->
-    <div id="about" class="hidden">
+    <div id="about" class="section hidden">
         <div class="container">
             <div class="row">
                 <div class="about-col-1">
@@ -93,7 +93,7 @@
         </div>
     </div>
     <!-- -------------services------------ -->
-    <div id="services" class="hidden">
+    <div id="services" class="section hidden">
         <div class="container">
             <h1 class="sub-title">My Services</h1>
             <div class="services-list">
@@ -128,7 +128,7 @@
         </div>
     </div>
     <!-- -------------contact------------ -->
-    <div id="contact" class="hidden">
+    <div id="contact" class="section hidden">
         <div class="container">
             <div class="row">
                 <div class="contact-left">
@@ -216,10 +216,19 @@
         document.querySelectorAll('.hidden').forEach(sec => observer.observe(sec));
     </script>
     <script>
+        // Local visitor counter
         let visitCount = localStorage.getItem('visitCount');
         visitCount = visitCount ? parseInt(visitCount) + 1 : 1;
         localStorage.setItem('visitCount', visitCount);
         document.getElementById('count').innerText = visitCount;
+
+        // Global counter using countapi
+        fetch('https://api.countapi.xyz/hit/mohideen-portfolio/visits')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('count').innerText = data.value;
+            })
+            .catch(console.error);
     </script>
 </body>
 </html>
