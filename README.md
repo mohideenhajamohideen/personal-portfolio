@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-This project is a lightweight personal portfolio redesigned with a minimalist style similar to Apple.com. The site uses **TailwindCSS** for styling and a small **Express** server to track total visits.
+This project is a lightweight personal portfolio redesigned with a minimalist style. The site uses **TailwindCSS** for styling and a small **Express** server to track total visits.
 
 ## Getting Started
 
