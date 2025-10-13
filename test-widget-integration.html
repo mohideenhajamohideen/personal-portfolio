@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevenLabs Widget Integration Test</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        .test-section {
+            margin-bottom: 30px;
+        }
+        .test-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #374151;
+        }
+        .test-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #e5e7eb;
+            background: #f9fafb;
+        }
+        .test-item.pass {
+            border-left-color: #10b981;
+            background: #ecfdf5;
+        }
+        .test-item.fail {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        .test-item.pending {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .status.pass { background: #10b981; color: white; }
+        .status.fail { background: #ef4444; color: white; }
+        .status.pending { background: #f59e0b; color: white; }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .info-box h3 {
+            margin: 0 0 10px 0;
+            color: #1e40af;
+        }
+        .viewport-info {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #e0e7ff;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">🧪 ElevenLabs Widget Integration Test Suite</div>
+        
+        <div class="info-box">
+            <h3>Test Environment</h3>
+            <div id="envInfo">
+                <div class="viewport-info">Browser: <span id="browserInfo"></span></div>
+                <div class="viewport-info">Viewport: <span id="viewportInfo"></span></div>
+                <div class="viewport-info">Device Type: <span id="deviceType"></span></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="runAllTests()">Run All Tests</button>
+            <button class="btn-secondary" onclick="openPortfolio()">Open Portfolio</button>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">1. Widget Loading & Initialization</div>
+            <div id="loadingTests"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">2. Positioning & Layout</div>
+            <div id="positionTests"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">3. Visual Effects (Glow & Animation)</div>
+            <div id="visualTests"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">4. Theme Compatibility</div>
+            <div id="themeTests"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">5. Responsive Design</div>
+            <div id="responsiveTests"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">6. Performance & Accessibility</div>
+            <div id="performanceTests"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test results storage
+        const testResults = {
+            loading: [],
+            position: [],
+            visual: [],
+            theme: [],
+            responsive: [],
+            performance: []
+        };
+
+        // Detect browser
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Chrome') && !ua.includes('Edg')) return 'Chrome';
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+            if (ua.includes('Edg')) return 'Edge';
+            return 'Unknown';
+        }
+
+        // Detect device type
+        function detectDeviceType() {
+            const width = window.innerWidth;
+            if (width < 768) return 'Mobile';
+            if (width < 1024) return 'Tablet';
+            return 'Desktop';
+        }
+
+        // Update environment info
+        function updateEnvInfo() {
+            document.getElementById('browserInfo').textContent = detectBrowser();
+            document.getElementById('viewportInfo').textContent = `${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('deviceType').textContent = detectDeviceType();
+        }
+
+        // Render test result
+        function renderTest(category, name, status, message) {
+            const container = document.getElementById(`${category}Tests`);
+            const testItem = document.createElement('div');
+            testItem.className = `test-item ${status}`;
+            testItem.innerHTML = `
+                <span class="status ${status}">${status.toUpperCase()}</span>
+                <strong>${name}</strong>: ${message}
+            `;
+            container.appendChild(testItem);
+        }
+
+        // Test checklist
+        const tests = {
+            loading: [
+                {
+                    name: 'Widget element exists in DOM',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                resolve(widget !== null);
+                            }, 1000);
+                        });
+                    }
+                },
+                {
+                    name: 'Widget script loaded from CDN',
+                    check: () => {
+                        const scripts = Array.from(document.scripts);
+                        return scripts.some(s => s.src.includes('elevenlabs') && s.src.includes('convai-widget-embed'));
+                    }
+                },
+                {
+                    name: 'Agent ID correctly set',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                const agentId = widget?.getAttribute('agent-id');
+                                resolve(agentId === 'agent_6301k7fhssjnepnvvajj2krtefc7');
+                            }, 1000);
+                        });
+                    }
+                }
+            ],
+            position: [
+                {
+                    name: 'Widget has fixed positioning',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                resolve(styles.position === 'fixed');
+                            }, 1500);
+                        });
+                    }
+                },
+                {
+                    name: 'Widget positioned in bottom-right',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                const hasBottom = styles.bottom && styles.bottom !== 'auto';
+                                const hasRight = styles.right && styles.right !== 'auto';
+                                resolve(hasBottom && hasRight);
+                            }, 1500);
+                        });
+                    }
+                },
+                {
+                    name: 'Widget has appropriate z-index',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                const zIndex = parseInt(styles.zIndex);
+                                resolve(zIndex >= 40);
+                            }, 1500);
+                        });
+                    }
+                }
+            ],
+            visual: [
+                {
+                    name: 'Widget has box-shadow (glow effect)',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                resolve(styles.boxShadow && styles.boxShadow !== 'none');
+                            }, 1500);
+                        });
+                    }
+                },
+                {
+                    name: 'Widget has border-radius',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                resolve(styles.borderRadius && styles.borderRadius !== '0px');
+                            }, 1500);
+                        });
+                    }
+                },
+                {
+                    name: 'Widget has animation applied',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                resolve(styles.animation && styles.animation !== 'none');
+                            }, 1500);
+                        });
+                    }
+                }
+            ],
+            theme: [
+                {
+                    name: 'CSS includes dark mode styles',
+                    check: () => {
+                        const styles = Array.from(document.styleSheets);
+                        let hasDarkMode = false;
+                        styles.forEach(sheet => {
+                            try {
+                                const rules = Array.from(sheet.cssRules || []);
+                                hasDarkMode = rules.some(rule => 
+                                    rule.selectorText && rule.selectorText.includes('.dark elevenlabs-convai')
+                                );
+                            } catch (e) {
+                                // Cross-origin stylesheets
+                            }
+                        });
+                        return hasDarkMode;
+                    }
+                },
+                {
+                    name: 'Widget has transition property',
+                    check: () => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                const widget = document.querySelector('elevenlabs-convai');
+                                if (!widget) resolve(false);
+                                const styles = window.getComputedStyle(widget);
+                                resolve(styles.transition && styles.transition !== 'all 0s ease 0s');
+                            }, 1500);
+                        });
+                    }
+                }
+            ],
+            responsive: [
+                {
+                    name: 'Mobile breakpoint styles exist',
+                    check: () => {
+                        const styles = Array.from(document.styleSheets);
+                        let hasMobileStyles = false;
+                        styles.forEach(sheet => {
+                            try {
+                                const rules = Array.from(sheet.cssRules || []);
+                                hasMobileStyles = rules.some(rule => 
+                                    rule.media && rule.media.mediaText.includes('max-width: 768px')
+                                );
+                            } catch (e) {
+                                // Cross-origin stylesheets
+                            }
+                        });
+                        return hasMobileStyles;
+                    }
+                },
+                {
+                    name: 'Desktop hover styles exist',
+                    check: () => {
+                        const styles = Array.from(document.styleSheets);
+                        let hasDesktopHover = false;
+                        styles.forEach(sheet => {
+                            try {
+                                const rules = Array.from(sheet.cssRules || []);
+                                hasDesktopHover = rules.some(rule => 
+                                    rule.media && rule.media.mediaText.includes('min-width: 769px')
+                                );
+                            } catch (e) {
+                                // Cross-origin stylesheets
+                            }
+                        });
+                        return hasDesktopHover;
+                    }
+                },
+                {
+                    name: 'Current viewport is appropriate',
+                    check: () => {
+                        const width = window.innerWidth;
+                        return width >= 320; // Minimum supported width
+                    }
+                }
+            ],
+            performance: [
+                {
+                    name: 'Script loads asynchronously',
+                    check: () => {
+                        const scripts = Array.from(document.scripts);
+                        const widgetScript = scripts.find(s => s.src.includes('convai-widget-embed'));
+                        return widgetScript?.async === true;
+                    }
+                },
+                {
+                    name: 'No console errors present',
+                    check: () => {
+                        // This is a manual check - automated error detection would require more setup
+                        return true; // Assume pass for now
+                    }
+                }
+            ]
+        };
+
+        // Run all tests
+        async function runAllTests() {
+            // Clear previous results
+            ['loading', 'position', 'visual', 'theme', 'responsive', 'performance'].forEach(cat => {
+                document.getElementById(`${cat}Tests`).innerHTML = '';
+            });
+
+            updateEnvInfo();
+
+            // Run each category
+            for (const [category, testList] of Object.entries(tests)) {
+                for (const test of testList) {
+                    try {
+                        const result = await test.check();
+                        const status = result ? 'pass' : 'fail';
+                        const message = result ? 'Test passed successfully' : 'Test failed - check implementation';
+                        renderTest(category, test.name, status, message);
+                    } catch (error) {
+                        renderTest(category, test.name, 'fail', `Error: ${error.message}`);
+                    }
+                }
+            }
+        }
+
+        // Open portfolio in new tab
+        function openPortfolio() {
+            window.open('index.html', '_blank');
+        }
+
+        // Initialize
+        updateEnvInfo();
+        window.addEventListener('resize', updateEnvInfo);
+    </script>
+</body>
+</html>

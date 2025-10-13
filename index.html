@@ -20,32 +20,287 @@
       };
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
+        body { 
+          font-family: 'Inter', sans-serif;
+          overflow-x: hidden;
+        }
+        html { 
+          scroll-behavior: smooth;
+        }
+        
+        /* Fluid animations */
+        * {
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                      opacity 0.3s ease,
+                      box-shadow 0.3s ease;
+        }
         
         /* Custom Grid for equal height cards */
         .auto-rows-fr { grid-auto-rows: 1fr; }
         
         /* Smooth transitions */
-        .transition-all { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .transition-all { transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         
-        /* Hover effects */
-        .group:hover .group-hover\:scale-105 { transform: scale(1.05); }
-        .group:hover .group-hover\:text-blue-600 { color: #2563eb; }
+        /* Floating animation */
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
         
-        /* Scroll animation */
+        /* Fade in from bottom */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+        
+        /* Bounce animation */
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
         }
         .animate-bounce-slow { animation: bounce 2s infinite; }
+        
+        /* Shimmer effect */
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }
+        
+        /* ElevenLabs Widget Styles */
+        elevenlabs-convai {
+          position: fixed !important;
+          bottom: 24px;
+          right: 24px;
+          z-index: 40;
+          
+          /* Subtle glow effect */
+          filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3))
+                  drop-shadow(0 0 16px rgba(59, 130, 246, 0.2));
+        }
+        
+        .dark elevenlabs-convai {
+          filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.4))
+                  drop-shadow(0 0 20px rgba(96, 165, 250, 0.3));
+        }
+        
+        @media (max-width: 768px) {
+          elevenlabs-convai {
+            bottom: 16px;
+            right: 16px;
+          }
+        }
+        
+        /* Fluid hover effects */
+        a, button {
+          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          position: relative;
+        }
+        
+        /* Card fluid hover */
+        .group {
+          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          will-change: transform;
+        }
+        
+        .group:hover {
+          transform: translateY(-12px) scale(1.02);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .group:hover img {
+          transform: scale(1.1);
+        }
+        
+        /* Navigation fluid hover */
+        nav a {
+          position: relative;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        nav a:hover {
+          transform: translateY(-3px);
+        }
+        
+        nav a::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: currentColor;
+          transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        nav a:hover::after {
+          width: 100%;
+        }
+        
+        /* Button fluid effects */
+        button, a[class*="bg-blue"], a[class*="border-"] {
+          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        button:hover, a[class*="bg-blue"]:hover {
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        a[class*="border-"]:hover {
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Stats fluid hover */
+        .text-center {
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .text-center:hover {
+          transform: translateY(-5px);
+        }
+        
+        .text-center:hover .text-3xl {
+          animation: pulse 0.6s ease-in-out;
+        }
+        
+        /* Tech badge fluid hover */
+        span[class*="rounded-full"] {
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          cursor: pointer;
+        }
+        
+        span[class*="rounded-full"]:hover {
+          transform: translateY(-4px) scale(1.08);
+          box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Image hover effects */
+        img {
+          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        img:hover {
+          transform: scale(1.05) rotate(2deg);
+        }
+        
+        /* Section fade in on scroll */
+        section {
+          animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Header backdrop blur enhancement */
+        header {
+          transition: all 0.3s ease;
+        }
+        
+        /* Smooth scroll indicator */
+        .animate-bounce-slow:hover {
+          animation: bounce 1s infinite;
+        }
+        
+        /* Badge pulse */
+        .bg-blue-100, .dark .bg-blue-900\/30 {
+          transition: all 0.3s ease;
+        }
+        
+        .bg-blue-100:hover, .dark .bg-blue-900\/30:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Visitor counter hover */
+        #visitor-widget {
+          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        #visitor-widget:hover {
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Theme toggle fluid animation */
+        #darkToggle {
+          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        #darkToggle:hover {
+          transform: rotate(180deg) scale(1.1);
+        }
+        
+        /* Gradient text shimmer */
+        .bg-gradient-to-r {
+          background-size: 200% auto;
+          animation: shimmer 3s linear infinite;
+        }
+        
+        /* Graceful name shimmer effect */
+        @keyframes textShimmer {
+          0% {
+            background-position: -200% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+        
+        .logo-shimmer {
+          background: linear-gradient(
+            90deg,
+            #1f2937 0%,
+            #1f2937 30%,
+            #3b82f6 45%,
+            #8b5cf6 50%,
+            #3b82f6 55%,
+            #1f2937 70%,
+            #1f2937 100%
+          );
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: textShimmer 3s linear infinite;
+          display: inline-block;
+        }
+        
+        .dark .logo-shimmer {
+          background: linear-gradient(
+            90deg,
+            #ffffff 0%,
+            #ffffff 30%,
+            #60a5fa 45%,
+            #a78bfa 50%,
+            #60a5fa 55%,
+            #ffffff 70%,
+            #ffffff 100%
+          );
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: textShimmer 3s linear infinite;
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-inter">
     <!-- Header -->
     <header class="fixed top-0 inset-x-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm z-50">
         <nav class="max-w-7xl mx-auto flex items-center justify-between p-4">
-            <div class="font-bold text-xl text-gray-900 dark:text-white">
+            <div class="font-bold text-xl logo-shimmer">
                 Mohideen
             </div>
             
@@ -67,12 +322,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-            <div class="absolute top-3/4 right-1/4 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 2s;"></div>
-        </div>
-
         <div class="max-w-4xl mx-auto text-center px-4 relative z-10">
             <!-- Badge -->
             <div class="inline-flex items-center px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium mb-8">
@@ -732,5 +981,9 @@
             });
         });
     </script>
+
+    <!-- ElevenLabs Conversational AI Widget -->
+    <elevenlabs-convai agent-id="agent_6301k7fhssjnepnvvajj2krtefc7"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
 </html>
