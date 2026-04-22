@@ -1,6 +1,12 @@
-# Personal Portfolio
+# Personal Portfolio — Mohideen Hajamohideen
 
-This project is a lightweight personal portfolio redesigned with a minimalist style. The site uses **TailwindCSS** for styling and a small **Express** server to track total visits.
+An editorial, world-class single-page portfolio for **Mohideen Hajamohideen**, GenAI &amp; Cloud Solutions Architect at AWS Professional Services (EMEA).
+
+Aesthetic direction: warm editorial minimalism — Fraunces variable serif + Instrument Sans + JetBrains Mono, terracotta accent on deep warm-black ink, numbered case studies, subtle grain overlay, dark-default with light toggle. No framework dependency; hand-written CSS with CSS variables for theming.
+
+Sections: hero · about &amp; impact · tech marquee · selected work (6 case studies from real customer engagements) · stack · recognition · contact.
+
+Integrations preserved from the previous build: Google Sheets contact form, visitor counter, ElevenLabs Conversational AI widget.
 
 ## Getting Started
 
@@ -29,6 +35,8 @@ DB_FILE=./api/db.json
 The static files can be deployed to services like Netlify or Vercel. The visitor API can be hosted separately on services such as Render or Heroku.
 
 ## Technology
-- TailwindCSS via CDN
-- Express with LowDB for storage
-- AOS for scroll animations
+- Hand-written HTML &amp; CSS (no framework); CSS variables for light/dark theming
+- Google Fonts: Fraunces, Instrument Sans, JetBrains Mono
+- IntersectionObserver for scroll reveals
+- Express with LowDB for the visitor counter API
+- ElevenLabs Conversational AI widget
