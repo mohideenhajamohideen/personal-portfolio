@@ -1242,12 +1242,60 @@ footer {
 }
 @media (max-width: 560px) { #visitor-widget { display: none !important; } }
 
-elevenlabs-convai {
-  position: fixed !important;
-  bottom: 20px;
+/* Voice assistant — a compact launcher; the widget itself is mounted on demand
+   so nothing floats over the page (and no third-party script loads) until asked. */
+.voice-launcher {
+  position: fixed;
   right: 20px;
+  bottom: 20px;
+  z-index: 46;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 320ms var(--ease), color 320ms var(--ease),
+              border-color 320ms var(--ease), transform 420ms var(--ease-out);
+}
+.voice-launcher:hover {
+  background: var(--accent);
+  color: #FFF6EC;
+  transform: translateY(-2px);
+}
+.voice-launcher svg { width: 16px; height: 16px; flex: none; }
+.voice-launcher .ico-close { display: none; }
+.voice-launcher[aria-expanded="true"] { padding: 13px; }
+.voice-launcher[aria-expanded="true"] .ico-wave,
+.voice-launcher[aria-expanded="true"] .voice-label { display: none; }
+.voice-launcher[aria-expanded="true"] .ico-close { display: block; }
+.voice-launcher[data-state="loading"] { opacity: 0.6; pointer-events: none; }
+
+/* Icon-only below 620px — the label is what actually crowded small screens. */
+@media (max-width: 620px) {
+  .voice-launcher { padding: 13px; right: 16px; bottom: 16px; }
+  .voice-launcher .voice-label { display: none; }
+}
+
+.voice-host[hidden] { display: none; }
+.voice-host elevenlabs-convai {
+  position: fixed !important;
+  right: 16px;
+  bottom: 82px;      /* clears the launcher rather than stacking on top of it */
   z-index: 45;
 }
+@media (max-width: 620px) { .voice-host elevenlabs-convai { bottom: 74px; } }
 
 /* ============================================================
    REVEALS
@@ -1282,7 +1330,7 @@ elevenlabs-convai {
 
 @media print {
   .site-nav, .mobile-menu, .progress, .work-preview, #visitor-widget,
-  elevenlabs-convai, .hero-canvas, .halo, .scroll-cue, .marquee { display: none !important; }
+  .voice-launcher, .voice-host, .hero-canvas, .halo, .scroll-cue, .marquee { display: none !important; }
   body { background: #fff; color: #000; }
 }
 </style>
@@ -1881,9 +1929,21 @@ elevenlabs-convai {
   <span><span id="visitor-count">…</span> visitors</span>
 </div>
 
-<!-- ElevenLabs Conversational AI Widget -->
-<elevenlabs-convai agent-id="agent_6301k7fhssjnepnvvajj2krtefc7"></elevenlabs-convai>
-<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<!-- ElevenLabs Conversational AI — mounted on demand from the launcher below -->
+<button id="voice-launcher" class="voice-launcher" type="button"
+        aria-expanded="false" aria-controls="voice-host"
+        aria-label="Open the voice assistant">
+  <svg class="ico-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <path d="M4 10v4M8 6.5v11M12 3.5v17M16 7.5v9M20 11v2"/>
+  </svg>
+  <svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </svg>
+  <span class="voice-label">Ask my AI</span>
+</button>
+<div id="voice-host" class="voice-host" hidden></div>
 
 <script type="application/ld+json">
 {
@@ -2359,6 +2419,65 @@ elevenlabs-convai {
       })
       .catch(function () { /* no endpoint on static hosting — stay hidden */ })
       .finally(function () { clearTimeout(timer); });
+  })();
+
+  /* ---------------------------------------------------------
+     Voice assistant — lazy-mounted behind the launcher
+     --------------------------------------------------------- */
+  (function () {
+    var AGENT  = 'agent_6301k7fhssjnepnvvajj2krtefc7';
+    var SRC    = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
+    var btn    = document.getElementById('voice-launcher');
+    var host   = document.getElementById('voice-host');
+    if (!btn || !host) return;
+
+    var loading = null;   // Promise, once the script has been asked for
+
+    function load() {
+      if (loading) return loading;
+      loading = new Promise(function (resolve, reject) {
+        var el = document.createElement('elevenlabs-convai');
+        el.setAttribute('agent-id', AGENT);
+        host.appendChild(el);
+
+        var s = document.createElement('script');
+        s.src = SRC;
+        s.async = true;
+        s.type = 'text/javascript';
+        s.onload = resolve;
+        s.onerror = function () { reject(new Error('widget script failed')); };
+        document.body.appendChild(s);
+      });
+      return loading;
+    }
+
+    function setOpen(open) {
+      host.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close the voice assistant' : 'Open the voice assistant');
+    }
+
+    btn.addEventListener('click', function () {
+      if (btn.getAttribute('aria-expanded') === 'true') { setOpen(false); return; }
+
+      // Already mounted — just reveal it again.
+      if (loading) { setOpen(true); return; }
+
+      btn.setAttribute('data-state', 'loading');
+      load().then(function () {
+        btn.removeAttribute('data-state');
+        setOpen(true);
+      }).catch(function () {
+        // Network blocked or unpkg down: fail visibly rather than dead-clicking.
+        btn.removeAttribute('data-state');
+        loading = null;
+        host.innerHTML = '';
+        btn.querySelector('.voice-label').textContent = 'Unavailable';
+        setTimeout(function () {
+          btn.querySelector('.voice-label').textContent = 'Ask my AI';
+        }, 4000);
+      });
+    });
   })();
 
   /* ---------------------------------------------------------
